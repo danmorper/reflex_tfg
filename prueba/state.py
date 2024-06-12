@@ -17,6 +17,15 @@ DEFAULT_CHATS = {
     "Chat": [],
 }
 
+# Read boe.txt
+with open('boe.txt', 'r') as file:
+    boe = file.read()
+gpt_info = f"""
+The "Boletín Oficial del Estado" (Official State Gazette) of Spain is the official publication for laws, decrees, and official announcements of the Spanish government.
+Here is the content of the "BOE" (Boletín Oficial del Estado) in which the entrance of Spain into the European Economic Community was published:
+{boe}.
+Answer questions in spanish when the user writes them in spanish or in english when the user writes them in english about this information. Be as brief as possible.
+"""
 class State(rx.State):
     """The app state."""
     chats: dict[str, list[QA]] = DEFAULT_CHATS
@@ -30,10 +39,11 @@ class State(rx.State):
         if question:
             self.chats[self.current_chat].append(QA(question=question, answer=""))
             self.processing = True
-            yield
+            #yield
 
             # Build the full conversation history
-            messages = [{"role": "system", "content": "You are a helpful assistant."}]
+            messages = [{"role": "system", 
+                         "content": gpt_info},]
             for qa in self.chats[self.current_chat]:
                 messages.append({"role": "user", "content": qa.question})
                 messages.append({"role": "assistant", "content": qa.answer})

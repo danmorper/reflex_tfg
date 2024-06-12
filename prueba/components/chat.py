@@ -7,7 +7,7 @@ def message(qa: QA) -> rx.Component:
     return rx.box(
         rx.box(
             rx.markdown(qa.question, background_color="lightblue", padding="0.5em", border_radius="5px"),
-            text_align="right",
+            text_align="right", 
         ),
         rx.box(
             rx.markdown(qa.answer, background_color="lightgreen", padding="0.5em", border_radius="5px"),
@@ -16,6 +16,7 @@ def message(qa: QA) -> rx.Component:
         ),
         margin_bottom="1em",
         width="100%",
+        color="black",
     )
 
 def chat() -> rx.Component:
